@@ -9,7 +9,7 @@ def getHistory(tickers, names) :
         data[names[i]] = raw['Close']
     return data.dropna()
 
-def getWeightByAbsoluteMomentum(assets, months=12):
+def getWeightByAbsoluteMomentum(assets, months=12) :
     momentum = assets / assets.shift(months) - 1
     print('momentum \n', momentum.head(30))
 
