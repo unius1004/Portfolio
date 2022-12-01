@@ -1,17 +1,27 @@
+import yfinance as yf
 import FinanceDataReader as fdr
 import numpy as np
 import pandas as pd
 
-def getHistory(tickers, names) :
+def getHistoryByFdr(tickers, names) :
     data = pd.DataFrame()
     for i in range(0, len(tickers)) :
         raw = fdr.DataReader(tickers[i])
         data[names[i]] = raw['Close']
     return data.dropna()
 
+def getHistoryByYf(tickers, names) :
+    data = yf.download(tickers)['Adj Close']
+    if (len(tickers) > 1):
+        data = data[tickers]
+    else:
+        data = data.to_frame()
+        data = data.rename(columns={'Adj Close':names[0]})
+    return data.dropna()
+
 def getWeightByAbsoluteMomentum(assets, months=12) :
     momentum = assets / assets.shift(months) - 1
-    print('momentum \n', momentum.head(30))
+    print('momentum \n', momentum)
 
     weights = pd.DataFrame(np.zeros((len(assets),2)), columns=assets.columns)
     weights['Date'] = assets.index
