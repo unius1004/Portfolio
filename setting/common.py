@@ -23,3 +23,13 @@ def getWeightByAbsoluteMomentum(assets, months=12) :
         else:
             weights[assets.columns[1]].iloc[i] = 1
     return weights
+
+def getWeightByAvgMomentumScore(assets):
+    sumOfmomentum = 0
+    sumOfscore = 0
+    for i in range(1, 13):
+        sumOfmomentum = assets / assets.shift(i) + sumOfmomentum
+        sumOfscore = np.where(assets / assets.shift(i) > 1, 1,0) + sumOfscore
+    
+    sumOfmomentum[sumOfmomentum > 0] = sumOfscore/12
+    return sumOfmomentum
