@@ -59,3 +59,15 @@ def InvVol_Weight_BT(data, name="Inverse Volatility", lag=0):
                            #bt.algos.PrintTempData(),
                            bt.algos.Rebalance()])
     return bt.Backtest(s, data, initial_capital=100000000.0)
+
+#선택된 자산에 대한 동일비중 백테스트
+def Selected_Asset_BT(data, selected, name="Equal Weight for selected asset"):
+    s = bt.Strategy(name, [bt.algos.RunMonthly(run_on_first_date=False, run_on_end_of_period=True, run_on_last_date=False),
+                           #bt.algos.PrintInfo('{name}:{now}. Value:{_value:0.0f}, Price:{_price:0.4f}'),
+                           #bt.algos.PrintDate(),
+                           bt.algos.SelectAll(),
+                           bt.algos.SelectWhere(selected),
+                           bt.algos.WeighEqually(),
+                           #bt.algos.PrintTempData(),
+                           bt.algos.Rebalance()])
+    return bt.Backtest(s, data, initial_capital=100000000.0)

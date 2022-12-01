@@ -6,7 +6,7 @@ from strategy import *
 from .common import *
 
 plt.rcParams["axes.grid"] = True
-plt.rcParams["figure.figsize"] = (20,5)
+plt.rcParams["figure.figsize"] = (20,8)
 plt.rcParams["font.family"] = "gulim"
 plt.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.size'] = 10.
