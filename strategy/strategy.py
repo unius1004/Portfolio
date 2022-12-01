@@ -48,3 +48,14 @@ def Relative_Momentum_BT(data, n, m, name="Relative Momentum",
                            #bt.algos.PrintTempData(),
                            bt.algos.Rebalance()])
     return bt.Backtest(s, data, initial_capital=100000000.0)
+
+def InvVol_Weight_BT(data, name="Inverse Volatility", lag=0):
+    s = bt.Strategy(name, [bt.algos.RunMonthly(run_on_first_date=False, run_on_end_of_period=True, run_on_last_date=False),        
+                           #bt.algos.RunAfterDate(start),
+                           #bt.algos.PrintInfo('{name}:{now}. Value:{_value:0.0f}, Price:{_price:0.4f}'),
+                           #bt.algos.PrintDate(),
+                           bt.algos.SelectAll(),
+                           bt.algos.WeighInvVol(lookback=pd.DateOffset(years=1), lag=pd.DateOffset(days=lag)),
+                           #bt.algos.PrintTempData(),
+                           bt.algos.Rebalance()])
+    return bt.Backtest(s, data, initial_capital=100000000.0)
