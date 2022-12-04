@@ -46,8 +46,18 @@ def getWeightByAvgMomentumScore(assets):
     sumOfmomentum[sumOfmomentum > 0] = sumOfscore/12
     return sumOfmomentum
 
-# 기준자산(dualticker[0])과 투자자산(ticker)의 순위(rank)내 자산의 n(=month)개월 모멘텀을 비교하여 기준자산보다 좋으면 ticker선택, 아니면 안전자산(dualticker[1])을 선택
 def getDualMomentumAsset(assets, months, rank, tickers, dualtickers) :
+    """
+    기준자산(dualticker[0])과 투자자산(ticker)의 순위(rank)내 자산의 n(=month)개월 모멘텀을 비교하여 기준자산보다 좋으면 ticker선택, 아니면 안전자산(dualticker[1])을 선택
+        Args:
+            asset(DataFrame) : n개의 투자자산, 기준자산, 안전자산의 종가정보를 포함하는 데이터프레임
+            months(int) : 모멘텀 개월수
+            rank(int) : n개의 투자자산에서 상대모멘텀으로 선택할 투자자산의 개수
+            tickers(list) : n개 투자자산의 티커
+            dualtickers(list): 기준자산과 안전자산의 티커
+        Returns:
+            모멘텀에 의해 선택된 자산에 대해 boolean 값의 데이터프레임으로 반환
+    """
     momentum = assets.pct_change(periods=months)
     #print('momentum head(20) \n', momentum.head(50))
     #print('momentum tail \n', momentum.tail())

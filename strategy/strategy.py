@@ -1,5 +1,10 @@
+import sys
+sys.path.insert(0,"/workspace/bt")
+
 import bt
 import pandas as pd
+
+print('bt version : ', bt.__version__)
 
 def Buy_n_Hold_BT(data, name="Buy and Hold"):
     s = bt.Strategy(name, [bt.algos.RunOnce(),
